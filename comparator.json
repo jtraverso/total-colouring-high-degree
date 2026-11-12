@@ -1,0 +1,18 @@
+{
+  "challenge_module": "TCCHighChallenge",
+  "solution_module": "TCCHighSolution",
+  "theorem_names": [
+    "TCCHigh.tcc_of_independent",
+    "TCCHigh.tcc_of_card_le_maxDegree_add_three",
+    "TCCHigh.tcc_of_card_le_maxDegree_add_four"
+  ],
+  "definition_names": [
+    "TCCHigh.IsTotalColoring"
+  ],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}

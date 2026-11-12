@@ -1,0 +1,143 @@
+@TCCHigh.IsTotalColoring.{u_1,
+    u_2} : {V : Type u_1} →
+  (G : SimpleGraph.{u_1} V) →
+    {α : Type u_2} → (c : Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) → α) → Prop
+def TCCHigh.IsTotalColoring.{u_1, u_2} : {V : Type u_1} →
+  (G : SimpleGraph.{u_1} V) →
+    {α : Type u_2} →
+      (c : Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) → α) → Prop :=
+fun {V : Type u_1} (G : SimpleGraph.{u_1} V) {α : Type u_2}
+    (c : Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) → α) =>
+  And
+    (∀ (u v : V),
+      @SimpleGraph.Adj.{u_1} V G u v →
+        @Ne.{u_2 + 1} α (c (@Sum.inl.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) u))
+          (c (@Sum.inl.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) v)))
+    (And
+      (∀ (e f : @Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)),
+        @Ne.{u_1 + 1} (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) e f →
+          ∀ (v : V),
+            @Membership.mem.{u_1, u_1} V (Sym2.{u_1} V)
+                (@SetLike.instMembership.{u_1, u_1} (Sym2.{u_1} V) V (@Sym2.instSetLike.{u_1} V))
+                (@Subtype.val.{u_1 + 1} (Sym2.{u_1} V)
+                  (fun (x : Sym2.{u_1} V) =>
+                    @Membership.mem.{u_1, u_1} (Sym2.{u_1} V) (Set.{u_1} (Sym2.{u_1} V))
+                      (@Set.instMembership.{u_1} (Sym2.{u_1} V)) (@SimpleGraph.edgeSet.{u_1} V G) x)
+                  e)
+                v →
+              @Membership.mem.{u_1, u_1} V (Sym2.{u_1} V)
+                  (@SetLike.instMembership.{u_1, u_1} (Sym2.{u_1} V) V (@Sym2.instSetLike.{u_1} V))
+                  (@Subtype.val.{u_1 + 1} (Sym2.{u_1} V)
+                    (fun (x : Sym2.{u_1} V) =>
+                      @Membership.mem.{u_1, u_1} (Sym2.{u_1} V) (Set.{u_1} (Sym2.{u_1} V))
+                        (@Set.instMembership.{u_1} (Sym2.{u_1} V)) (@SimpleGraph.edgeSet.{u_1} V G) x)
+                    f)
+                  v →
+                @Ne.{u_2 + 1} α
+                  (c (@Sum.inr.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) e))
+                  (c (@Sum.inr.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) f)))
+      (∀ (v : V) (e : @Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)),
+        @Membership.mem.{u_1, u_1} V (Sym2.{u_1} V)
+            (@SetLike.instMembership.{u_1, u_1} (Sym2.{u_1} V) V (@Sym2.instSetLike.{u_1} V))
+            (@Subtype.val.{u_1 + 1} (Sym2.{u_1} V)
+              (fun (x : Sym2.{u_1} V) =>
+                @Membership.mem.{u_1, u_1} (Sym2.{u_1} V) (Set.{u_1} (Sym2.{u_1} V))
+                  (@Set.instMembership.{u_1} (Sym2.{u_1} V)) (@SimpleGraph.edgeSet.{u_1} V G) x)
+              e)
+            v →
+          @Ne.{u_2 + 1} α
+            (c (@Sum.inl.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) v))
+            (c (@Sum.inr.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) e))))
+@TCCHigh.tcc_of_independent.{u_1} : ∀ {V : Type u_1} [inst : Fintype.{u_1} V] [DecidableEq.{u_1 + 1} V]
+  (G : SimpleGraph.{u_1} V) [inst_2 : @DecidableRel.{u_1 + 1, u_1 + 1} V V (@SimpleGraph.Adj.{u_1} V G)]
+  (S : Finset.{u_1} V)
+  (hS :
+    ∀ (u : V),
+      @Membership.mem.{u_1, u_1} V (Finset.{u_1} V)
+          (@SetLike.instMembership.{u_1, u_1} (Finset.{u_1} V) V (@Finset.instSetLike.{u_1} V)) S u →
+        ∀ (v : V),
+          @Membership.mem.{u_1, u_1} V (Finset.{u_1} V)
+              (@SetLike.instMembership.{u_1, u_1} (Finset.{u_1} V) V (@Finset.instSetLike.{u_1} V)) S v →
+            Not (@SimpleGraph.Adj.{u_1} V G u v))
+  (hcard :
+    @LE.le.{0} Nat instLENat (@Fintype.card.{u_1} V inst)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@Finset.card.{u_1} V S)
+          (@SimpleGraph.maxDegree.{u_1} V G inst inst_2))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1))))),
+  @Exists.{u_1 + 1}
+    (Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+      Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+    fun
+      (c :
+        Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+          Fin
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))) =>
+    @TCCHigh.IsTotalColoring.{u_1, 0} V G
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      c
+@TCCHigh.tcc_of_card_le_maxDegree_add_three.{u_1} : ∀ {V : Type u_1} [inst : Fintype.{u_1} V] [DecidableEq.{u_1 + 1} V]
+  (G : SimpleGraph.{u_1} V) [inst_2 : @DecidableRel.{u_1 + 1, u_1 + 1} V V (@SimpleGraph.Adj.{u_1} V G)]
+  (h :
+    @LE.le.{0} Nat instLENat (@Fintype.card.{u_1} V inst)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+        (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))),
+  @Exists.{u_1 + 1}
+    (Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+      Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+    fun
+      (c :
+        Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+          Fin
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))) =>
+    @TCCHigh.IsTotalColoring.{u_1, 0} V G
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      c
+@TCCHigh.tcc_of_card_le_maxDegree_add_four.{u_1} : ∀ {V : Type u_1} [inst : Fintype.{u_1} V] [DecidableEq.{u_1 + 1} V]
+  (G : SimpleGraph.{u_1} V) [inst_2 : @DecidableRel.{u_1 + 1, u_1 + 1} V V (@SimpleGraph.Adj.{u_1} V G)]
+  (h :
+    @LE.le.{0} Nat instLENat (@Fintype.card.{u_1} V inst)
+      (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+        (@OfNat.ofNat.{0} Nat (nat_lit 4) (instOfNatNat (nat_lit 4)))))
+  (hcase :
+    Or
+      (@LE.le.{0} Nat instLENat (@OfNat.ofNat.{0} Nat (nat_lit 7) (instOfNatNat (nat_lit 7)))
+        (@SimpleGraph.maxDegree.{u_1} V G inst inst_2))
+      (@Exists.{u_1 + 1} (Finset.{u_1} V) fun (S : Finset.{u_1} V) =>
+        And (@Eq.{1} Nat (@Finset.card.{u_1} V S) (@OfNat.ofNat.{0} Nat (nat_lit 3) (instOfNatNat (nat_lit 3))))
+          (∀ (u : V),
+            @Membership.mem.{u_1, u_1} V (Finset.{u_1} V)
+                (@SetLike.instMembership.{u_1, u_1} (Finset.{u_1} V) V (@Finset.instSetLike.{u_1} V)) S u →
+              ∀ (v : V),
+                @Membership.mem.{u_1, u_1} V (Finset.{u_1} V)
+                    (@SetLike.instMembership.{u_1, u_1} (Finset.{u_1} V) V (@Finset.instSetLike.{u_1} V)) S v →
+                  Not (@SimpleGraph.Adj.{u_1} V G u v)))),
+  @Exists.{u_1 + 1}
+    (Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+      Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+    fun
+      (c :
+        Sum.{u_1, u_1} V (@Set.Elem.{u_1} (Sym2.{u_1} V) (@SimpleGraph.edgeSet.{u_1} V G)) →
+          Fin
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat)
+              (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+              (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2))))) =>
+    @TCCHigh.IsTotalColoring.{u_1, 0} V G
+      (Fin
+        (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) (@SimpleGraph.maxDegree.{u_1} V G inst inst_2)
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))))
+      c
