@@ -24,16 +24,12 @@ theorem tcc_of_independent (S : Finset V) (hS : ∀ u ∈ S, ∀ v ∈ S, ¬ G.A
 theorem tcc_of_card_le_maxDegree_add_three (h : Fintype.card V ≤ G.maxDegree + 3) :
     ∃ c : V ⊕ G.edgeSet → Fin (G.maxDegree + 2), IsTotalColoring G c
 
-theorem tcc_of_card_le_maxDegree_add_four (h : Fintype.card V ≤ G.maxDegree + 4)
-    (hcase : 7 ≤ G.maxDegree ∨ ∃ S : Finset V, #S = 3 ∧ ∀ u ∈ S, ∀ v ∈ S, ¬ G.Adj u v) :
+theorem tcc_of_card_le_maxDegree_add_four (h : Fintype.card V ≤ G.maxDegree + 4) :
     ∃ c : V ⊕ G.edgeSet → Fin (G.maxDegree + 2), IsTotalColoring G c
 ```
 
-**Not covered:** `Δ(G) = |V| − 4` with `|V| ≤ 10` and no three pairwise non-adjacent vertices.
-These are the complements of the triangle-free graphs of minimum degree 3 on at most 10 vertices
-(232 graphs up to isomorphism); `scripts/` checks by brute force that each of them has a
-`(Δ + 2)`-total colouring and that the construction of the proof works for them, but this is not
-formalized. Yap–Chew's main theorem (`Δ = |V| − 5`) is not formalized.
+So the total colouring conjecture holds for every graph with `Δ(G) ≥ |V| − 4`. Yap–Chew's main
+theorem (`Δ = |V| − 5`) is not formalized.
 
 ## Proof
 
@@ -50,6 +46,12 @@ formalized. Yap–Chew's main theorem (`Δ = |V| − 5`) is not formalized.
   The enlarge-matching argument leaves at most one critical vertex uncovered at each step when
   `Δ ≥ 7`; the second pair is chosen through the first uncovered vertex, and the vertices of degree
   `Δ` of the apex graph again span a forest.
+* **No three independent vertices** (`TCCHigh/Paths.lean`, `Frame.lean`, `Alpha2.lean`,
+  `Split.lean`, `Main.lean`): for `|V| = Δ + 4` and independence number at most 2, the three
+  non-neighbours of a vertex of degree `Δ` form a triangle; a Hamiltonian path through the
+  vertices outside two non-adjacent pairs (it exists by extension and rotation, since there are no
+  three independent vertices) gives the two matchings as its odd and even edges (`tcc_frame`).
+  This replaces the paper's use of Kostochka's theorem and its case analysis for `n = 9, 10`.
 
 Dependencies (pinned, no code copied): Fournier's theorem, PALOMAR-2026-11-08-000009
 (jtraverso/fournier-class-one @ b7baf7b), which brings Vizing's theorem (PALOMAR-2026-10-15-000004)

@@ -3,3 +3,8 @@
 *.ilean
 .env
 .env.*
+scripts/*.log
+scripts/*.out
+scripts/*.norm
+scripts/*.bak
+scripts/fix_add_four.py

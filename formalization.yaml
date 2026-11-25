@@ -10,12 +10,12 @@ project:
     (1) tcc_of_independent: G has an independent set S with |V| ≤ |S| + Δ + 1 (Yap–Wang–Zhang 1989,
     Lemma 2.2; Yap–Chew 1992, Lemma 2.4); (2) tcc_of_card_le_maxDegree_add_three: Δ(G) ≥ |V| − 3
     (Yap–Wang–Zhang 1989, Theorem 2.3 and the closing remarks); (3)
-    tcc_of_card_le_maxDegree_add_four: Δ(G) ≥ |V| − 4, provided Δ(G) ≥ 7 or G has three pairwise
-    non-adjacent vertices. Quantitative caps: statement (3) does NOT cover graphs with
-    Δ(G) = |V| − 4 ≤ 6 (|V| ≤ 10) and independence number at most 2; those finitely many graphs
-    (232 up to isomorphism) were checked by computer outside Lean but are not formalized. The
-    proofs use Yap's apex-vertex technique: a new vertex joined to the vertices outside one or two
-    independent pairs, matchings found by the enlarge-matching argument, and Fournier's theorem
+    tcc_of_card_le_maxDegree_add_four: Δ(G) ≥ |V| − 4, for every finite simple graph (no further
+    hypothesis; Yap–Wang–Zhang 1989, Theorem 2.4). The proofs use Yap's apex-vertex technique: a
+    new vertex joined to the vertices outside one or two independent pairs, matchings found by
+    the enlarge-matching argument (when Δ ≥ 7 or G has three pairwise non-adjacent vertices) or,
+    when G has no three pairwise non-adjacent vertices, the two alternating matchings of a
+    Hamiltonian path through the vertices outside the pairs, and Fournier's theorem
     (PALOMAR-2026-11-08-000009) or Vizing's theorem (PALOMAR-2026-10-15-000004), both imported
     as lake dependencies, in place of the Chetwynd–Hilton theorem on three vertices of maximum
     degree and Kostochka's theorem for Δ ≤ 4 used in the original paper.
@@ -45,12 +45,13 @@ sources:
     note: >-
       Lemma 2.2 is formalized with the matching supplied by a coverage-maximal matching
       (statement 1); Theorem 2.3 and the closing remarks (Δ ≥ |V| − 3) completely (statement 2);
-      Theorem 2.4 (Δ = |V| − 4) for |V| ≥ 11 or when G contains three independent vertices
-      (statement 3). The formal proof differs from the paper: Fournier's theorem replaces the
-      Chetwynd–Hilton theorem on three vertices of maximum degree, and the small cases handled in
-      the paper by Kostochka's theorem (Δ ≤ 4) and by the case analysis for n = 9, 10 are not
-      formalized. The formalization is by a different author; the article's authors were not
-      involved.
+      Theorem 2.4 (Δ = |V| − 4) completely (statement 3). The formal proof differs from the paper:
+      Fournier's theorem replaces the Chetwynd–Hilton theorem on three vertices of maximum degree,
+      and the small cases handled in the paper by Kostochka's theorem (Δ ≤ 4) and by the case
+      analysis for n = 9, 10 are replaced by a uniform argument for graphs without three pairwise
+      non-adjacent vertices (two independent pairs and the alternating matchings of a Hamiltonian
+      path, which exists in such graphs by extension and rotation). The formalization is by a
+      different author; the article's authors were not involved.
     license: "all rights reserved"
     author_endorsement: "not-contacted"
   - title: "Total chromatic number of graphs of high degree, II"
@@ -81,8 +82,8 @@ related_formalizations:
 
 status:
   scope: >-
-    Statements 1–3 as described. Not formalized: Δ = |V| − 4 with |V| ≤ 10 and independence
-    number at most 2; Yap–Chew's Δ = |V| − 5.
+    Statements 1–3 as described (the total colouring conjecture for Δ(G) ≥ |V| − 4). Not
+    formalized: Yap–Chew's main theorem (Δ = |V| − 5).
   sorry_count: 0
   sorry_in_definitions: 0
   axioms: []
@@ -114,8 +115,8 @@ fidelity:
   divergences: >-
     Total colourings are maps V ⊕ G.edgeSet → Fin (Δ + 2) (term-only definition
     TCCHigh.IsTotalColoring). The hypothesis Δ(G) ≥ |V| − k is written
-    Fintype.card V ≤ G.maxDegree + k. Statement 3 carries the extra hypothesis
-    (7 ≤ Δ or three pairwise non-adjacent vertices) described above.
+    Fintype.card V ≤ G.maxDegree + k. The small cases of Theorem 2.4 are proved by a different
+    argument than in the paper (see the source note).
 
 review:
   status: "agent-reviewed"
@@ -125,8 +126,8 @@ review:
     Agent review by Claude Opus 5.5, distinct from the mechanical verification. Small cases were
     checked by brute force: every labelled graph with at most 6 vertices and 4Δ ≥ 3|V| has a
     (Δ + 2)-total colouring; all 232 graphs with Δ = |V| − 4 ≤ 6 and no three independent
-    vertices (complements of triangle-free graphs of minimum degree 3) have one, and the
-    two-pair construction of the proof succeeds on all of them for every choice made in the proof.
+    vertices (complements of triangle-free graphs of minimum degree 3) have one (these cases are
+    now also covered by the formal proof).
     No independent human review has been performed. No mathematical novelty is claimed.
 
 alignment:
@@ -134,7 +135,7 @@ alignment:
   statements:
     - {source: "Yap–Wang–Zhang 1989 Lemma 2.2; Yap–Chew 1992 Lemma 2.4", lean: "TCCHigh.tcc_of_independent", module: "TCCHighChallenge", status: "proved"}
     - {source: "Yap–Wang–Zhang 1989 Theorem 2.3 and remarks (Δ ≥ n − 3)", lean: "TCCHigh.tcc_of_card_le_maxDegree_add_three", module: "TCCHighChallenge", status: "proved"}
-    - {source: "Yap–Wang–Zhang 1989 Theorem 2.4 (Δ = n − 4), for Δ ≥ 7 or α ≥ 3", lean: "TCCHigh.tcc_of_card_le_maxDegree_add_four", module: "TCCHighChallenge", status: "proved"}
+    - {source: "Yap–Wang–Zhang 1989 Theorem 2.4 (Δ = n − 4)", lean: "TCCHigh.tcc_of_card_le_maxDegree_add_four", module: "TCCHighChallenge", status: "proved"}
 
 acknowledgements: >-
   Mathlib and the Lean community.

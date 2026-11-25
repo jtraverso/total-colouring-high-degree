@@ -59,11 +59,10 @@ theorem tcc_of_card_le_maxDegree_add_three [Fintype V] [DecidableEq V] (G : Simp
     ∃ c : V ⊕ G.edgeSet → Fin (G.maxDegree + 2), IsTotalColoring G c := by
   sorry
 
-/-- **Total colouring conjecture for `Δ(G) ≥ |V| − 4`**, when `Δ(G) ≥ 7` or `G` has three
-pairwise non-adjacent vertices (Yap–Wang–Zhang 1989, Theorem 2.4). -/
+/-- **Total colouring conjecture for `Δ(G) ≥ |V| − 4`** (Yap–Wang–Zhang 1989, Theorem 2.4, with the
+case without three pairwise non-adjacent vertices for `Δ(G) ≤ 6` completed here). -/
 theorem tcc_of_card_le_maxDegree_add_four [Fintype V] [DecidableEq V] (G : SimpleGraph V)
-    [DecidableRel G.Adj] (h : Fintype.card V ≤ G.maxDegree + 4)
-    (hcase : 7 ≤ G.maxDegree ∨ ∃ S : Finset V, #S = 3 ∧ ∀ u ∈ S, ∀ v ∈ S, ¬ G.Adj u v) :
+    [DecidableRel G.Adj] (h : Fintype.card V ≤ G.maxDegree + 4) :
     ∃ c : V ⊕ G.edgeSet → Fin (G.maxDegree + 2), IsTotalColoring G c := by
   sorry
 
