@@ -8,3 +8,5 @@ scripts/*.out
 scripts/*.norm
 scripts/*.bak
 scripts/fix_add_four.py
+scripts/*.lean
+scripts/locked_fast.sh
