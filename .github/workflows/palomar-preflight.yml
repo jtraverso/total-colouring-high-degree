@@ -1,4 +1,4 @@
-# Palomar mechanical preflight (manual dispatch).
+# Palomar mechanical preflight (manual dispatch, workflow_dispatch only).
 name: Palomar mechanical preflight
 
 on:
