@@ -12,7 +12,9 @@ public import TCCHigh.Main
 
 The proofs are in `TCCHigh/` (`TCCHighLib` namespace): the apex-graph assembly
 (`TCCHigh/Basic.lean`), one colour class (`TCCHigh/Level1.lean`), the enlarge-matching argument
-(`TCCHigh/Matching.lean`) and two colour classes (`TCCHigh/Level2.lean`). Edge colourings of the
+(`TCCHigh/Matching.lean`), two colour classes (`TCCHigh/Level2.lean`), and the graphs without
+three pairwise non-adjacent vertices (`TCCHigh/Paths.lean`, `Frame.lean`, `Alpha2.lean`,
+`Split.lean`, `Main.lean`). Edge colourings of the
 apex graph come from Vizing's theorem (jtraverso/vizing, PALOMAR-2026-10-15-000004) and Fournier's
 theorem (jtraverso/fournier-class-one, PALOMAR-2026-11-08-000009), both lake dependencies.
 -/

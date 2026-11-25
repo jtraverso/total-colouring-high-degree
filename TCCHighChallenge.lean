@@ -23,9 +23,11 @@ conjecture asserts a total colouring with `Δ(G) + 2` colours.
    size at least `|V| − Δ − 1` gives a total colouring with `Δ + 2` colours.
 2. `tcc_of_card_le_maxDegree_add_three` (Yap–Wang–Zhang, Theorem 2.3 and the closing remarks):
    the conjecture holds when `Δ(G) ≥ |V| − 3`.
-3. `tcc_of_card_le_maxDegree_add_four` (Yap–Wang–Zhang, Theorem 2.4, main cases): the conjecture
-   holds when `Δ(G) ≥ |V| − 4`, provided `Δ(G) ≥ 7` or `G` has three pairwise non-adjacent
-   vertices.
+3. `tcc_of_card_le_maxDegree_add_four` (Yap–Wang–Zhang, Theorem 2.4): the conjecture holds for
+   every finite simple graph with `Δ(G) ≥ |V| − 4`, with no further hypothesis. (The proof treats
+   `Δ(G) ≥ 7` or three pairwise non-adjacent vertices by the enlarge-matching argument, and the
+   remaining graphs, e.g. the complement of a 7-cycle, by alternating matchings of a Hamiltonian
+   path; these are proof cases only, not restrictions of the statement.)
 -/
 
 @[expose] public section
